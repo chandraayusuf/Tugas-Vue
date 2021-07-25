@@ -83,27 +83,44 @@ export default {
       }
       this.getTask();
     },
-    updateTask(modelId) {
+ updateTask(modelId) {
       alert('memanggil update task untuk id:' + modelId);
-    },
-    deleteTask(modelId) {
-      alert('memanggil delete task' + modelId);
-      axios({
-            url: 'http://todo.test/api/todos/a59d95c1-b888-481e-9218-e3a9a428ac8a',
+          axios({
+            url: 'https://todo.xsia.app/api/todos/'+modelId,
             method: 'post',
-            headers: { 
-              Authorization: `Bearer ${token}` },
+            headers: { Authorization: 'Bearer 289OoPxlXGX9HiG5DctalyxGVLSbxf4k7E5Xd1iJ' },
             data: {
-                _method:'delete'
-          }
-          })
-          .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+                description: this.description,
+                is_finish: false,
+                _method:'put'
+            },
+        }).then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.log(error);
+        });   
+      
+      this.getTask();
+
     },
+   deleteTask(modelId) {
+      alert('memanggil delete tasks' + modelId);
+            axios({
+            url: 'https://todo.xsia.app/api/todos/'+modelId,
+            method: 'delete',
+            headers: {  
+            Authorization: `Bearer 289OoPxlXGX9HiG5DctalyxGVLSbxf4k7E5Xd1iJ` 
+            },
+            this: {
+                _method:'delete'
+            },
+        }).then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.log(error);
+        });
+        this.getTask();
+    }
   },
   mounted() {
     this.getTask();
